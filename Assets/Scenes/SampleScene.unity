@@ -1000,7 +1000,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gravityInverted: 0
-  rigidBody: {fileID: 0}
+  velocity: {x: 0, y: 0}
+  isGrounded: 1
 --- !u!114 &1742563948
 MonoBehaviour:
   m_ObjectHideFlags: 0
