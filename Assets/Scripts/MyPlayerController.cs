@@ -16,6 +16,7 @@ public class MyPlayerController : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.gravityScale = GRAVITY_SCALE;
+        rigidBody.freezeRotation = true;
         // By default the up vector will be up
         upVector = new Vector2(1, 1);
     }
@@ -24,16 +25,15 @@ public class MyPlayerController : MonoBehaviour
     void Update()
     {
 
-        float xInput = Input.GetAxis("Horizontal");
+        float xInput = Input.GetAxisRaw("Horizontal");
 
         if (xInput != 0)
         {
-            rigidBody.velocity = new Vector2(xInput * 4f, rigidBody.velocity.y);
+            rigidBody.velocity = new Vector2(xInput * 7f, rigidBody.velocity.y);
         }
         if (Input.GetButton("Jump"))
         {
-            rigidBody.velocity = new Vector2(rigidBody.velocity.x, 7f) * upVector;
-            print(new Vector2(rigidBody.velocity.x, 7f) * upVector);
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, 20f) * upVector;
         }
         if (Input.GetKeyDown(KeyCode.P)) // Flip Gravity
         {
