@@ -11,7 +11,7 @@ public class MyPlayerController : MonoBehaviour
 
 
     private Rigidbody2D rigidBody;
-    private BoxCollider2D collider;
+    private BoxCollider2D boxCollider;
     private Vector2 upVector;
 
     // Ground Terrain
@@ -21,7 +21,7 @@ public class MyPlayerController : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        collider = GetComponent<BoxCollider2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
         rigidBody.gravityScale = GRAVITY_SCALE;
         rigidBody.freezeRotation = true;
         // By default the up vector will be up
@@ -40,7 +40,7 @@ public class MyPlayerController : MonoBehaviour
         }
         if (Input.GetButton("Jump") && IsGrounded())
         {
-            rigidBody.velocity = new Vector2(rigidBody.velocity.x, 20f * upVector.y);
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, 30f * upVector.y);
         }
         if (Input.GetKeyDown(KeyCode.P)) // Flip Gravity
         {
@@ -57,7 +57,7 @@ public class MyPlayerController : MonoBehaviour
     // Ground Detection
     private bool IsGrounded()
     {
-        return Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, upVector * -1, 1f, jumpableGround);
+        return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, upVector * -1, 0.1f, jumpableGround);
     }
     
 }
