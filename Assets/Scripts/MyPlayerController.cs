@@ -9,7 +9,7 @@ public class MyPlayerController : MonoBehaviour
     [SerializeField] private const int GRAVITY_SCALE = 10;
     [SerializeField] private Vector2 velocity;
 
-
+    private float CurrentGravityScale;
     private Rigidbody2D rigidBody;
     private BoxCollider2D boxCollider;
     private Vector2 upVector;
@@ -58,6 +58,41 @@ public class MyPlayerController : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, upVector * -1, 0.1f, jumpableGround);
+    }
+
+    // Hit box Detection
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        
+        switch(col.gameObject.tag)
+        {
+            case "GravityPadActivation" when rigidBody.gravityScale > 0:
+                InvertGravity();
+                break;
+            case "GravityPadDeactivation" when rigidBody.gravityScale < 0:
+                InvertGravity();
+                break;
+            case "SlowFallBuff":
+                CurrentGravityScale = rigidBody.gravityScale;
+                rigidBody.gravityScale /= 5; // This value can be changed to whatever
+                Invoke(nameof(SlowFall), 2.0f); // Can make this delay shorter or longer time if needed
+                break;
+
+        }
+    }
+
+    // Inverts current Gravity
+    public void InvertGravity()
+    {
+        _gravityInverted = !_gravityInverted;
+        rigidBody.gravityScale *= -1;
+        upVector.y *= -1;
+    }
+
+    // Reset gravity scale after slow fall. (Cannot use simple time delay in void methods)
+    public void SlowFall()
+    {
+        rigidBody.gravityScale = CurrentGravityScale;
     }
     
 }
