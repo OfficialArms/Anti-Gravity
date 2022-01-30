@@ -11,7 +11,6 @@ public class GravityTrigger : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        //rigidBody.gravityScale *= GRAVITY_SCALE;
         rigidBody.freezeRotation = true;
     }
     
