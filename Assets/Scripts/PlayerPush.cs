@@ -16,7 +16,7 @@ public class PlayerPush : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        boxLayer = LayerMask.GetMask("Ground");
     }
 
     // Update is called once per frame
@@ -28,7 +28,10 @@ public class PlayerPush : MonoBehaviour
         // Local scale makes sure the x is based on which way they are looking
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, MOVEABLE_DISTANCE, boxLayer);
 
-        if(hit.collider != null && hit.collider.gameObject.tag == "Grabable" && Input.GetKeyDown(KeyCode.E))
+        if(hit.collider == null)
+            hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x * -1, MOVEABLE_DISTANCE, boxLayer);
+
+        if (hit.collider != null && Input.GetKeyDown(KeyCode.E))
         {
             box = hit.collider.gameObject;
 
@@ -38,7 +41,6 @@ public class PlayerPush : MonoBehaviour
         } else if (Input.GetKeyUp(KeyCode.E))
         {
             box.GetComponent<FixedJoint2D>().enabled = false;
-            box.GetComponent<boxpull>().beingPushed = false;
         }
 
 
@@ -52,8 +54,7 @@ public class PlayerPush : MonoBehaviour
     {
         Gizmos.color = Color.red;
 
-        Gizmos.DrawLine((Vector2)transform.position - new Vector2(MOVEABLE_DISTANCE,0), 
-                        (Vector2) transform.position + (Vector2) transform.right * transform.localScale.x * MOVEABLE_DISTANCE
+        Gizmos.DrawLine((Vector2)transform.position, (Vector2) transform.position + (Vector2) transform.right * transform.localScale.x * MOVEABLE_DISTANCE
         );
     }
 }
