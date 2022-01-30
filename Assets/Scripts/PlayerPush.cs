@@ -33,6 +33,12 @@ public class PlayerPush : MonoBehaviour
 
             box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
         }
+
+
+        // DEBUGGING
+        // ===================
+        Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
+        Debug.DrawRay(transform.position, forward, Color.black);
     }
 
     private void OnDrawGizmos()

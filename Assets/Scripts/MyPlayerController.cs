@@ -22,6 +22,7 @@ public class MyPlayerController : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Vector2 upVector;
     private bool holdingJump = false;
+    private bool facingRight = true;
 
     // Ground Terrain
     [SerializeField] private LayerMask jumpableGround;
@@ -44,6 +45,18 @@ public class MyPlayerController : MonoBehaviour
 
         float xInput = Input.GetAxisRaw("Horizontal");
 
+        // Set player facing direction
+        if (xInput < 0)
+        {
+
+            facingRight = false;
+        }
+        else if (xInput > 0)
+        {
+            facingRight = true;
+        }
+
+        // Deal with the x-axis movement
         if (xInput != 0)
         {
             float newXVelocity = xInput * X_ACCELERATION + rigidBody.velocity.x;
