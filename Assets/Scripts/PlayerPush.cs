@@ -10,9 +10,6 @@ public class PlayerPush : MonoBehaviour
 
     GameObject box;
 
-    [Header("Constants")]
-    [SerializeField] private int GRAVITY_SCALE = 6;
-
     // Start is called before the first frame update
     void Start()
     {
