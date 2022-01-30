@@ -73,11 +73,6 @@ public class MyPlayerController : MonoBehaviour
             holdingJump = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.P)) // Flip Gravity
-        {
-            rigidBody.gravityScale *= -1;
-        }
-
         // For debugging
         velocity = rigidBody.velocity;
     }
