@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5861484740761274501
+--- !u!1001 &7346423894876992581
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -9,7 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4387806499227976377, guid: d6115b91e3c250249894f191b502b92f, type: 3}
       propertyPath: m_Name
-      value: Deactivation Pad
+      value: Deactivation Pad (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387806499227976377, guid: d6115b91e3c250249894f191b502b92f, type: 3}
+      propertyPath: m_TagString
+      value: GravityPadDeactivation
       objectReference: {fileID: 0}
     - target: {fileID: 4387806499227976382, guid: d6115b91e3c250249894f191b502b92f, type: 3}
       propertyPath: m_Color.b
@@ -29,11 +33,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4387806499227976383, guid: d6115b91e3c250249894f191b502b92f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.4425745
+      value: -10.5254
       objectReference: {fileID: 0}
     - target: {fileID: 4387806499227976383, guid: d6115b91e3c250249894f191b502b92f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.227226
+      value: 44.377754
       objectReference: {fileID: 0}
     - target: {fileID: 4387806499227976383, guid: d6115b91e3c250249894f191b502b92f, type: 3}
       propertyPath: m_LocalPosition.z

@@ -4,18 +4,14 @@ using UnityEngine;
 
 public class GravityTrigger : MonoBehaviour
 {
-    [Header("Gravity")]
-    [SerializeField] private const int GRAVITY_SCALE = 10;
 
     private Rigidbody2D rigidBody;
-    private BoxCollider2D boxCollider;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        boxCollider = GetComponent<BoxCollider2D>();
-        rigidBody.gravityScale = GRAVITY_SCALE;
+        //rigidBody.gravityScale *= GRAVITY_SCALE;
         rigidBody.freezeRotation = true;
     }
     
