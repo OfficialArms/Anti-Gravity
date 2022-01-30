@@ -29,14 +29,14 @@ public class PlayerPush : MonoBehaviour
         if(hit.collider == null)
             hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x * -1, MOVEABLE_DISTANCE, boxLayer);
 
-        if (hit.collider != null && Input.GetKeyDown(KeyCode.E))
+        if (hit.collider != null && (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Keypad0)))
         {
             box = hit.collider.gameObject;
 
             box.GetComponent<FixedJoint2D>().enabled = true;
 
             box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
-        } else if (Input.GetKeyUp(KeyCode.E))
+        } else if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.Keypad0))
         {
             box.GetComponent<FixedJoint2D>().enabled = false;
         }

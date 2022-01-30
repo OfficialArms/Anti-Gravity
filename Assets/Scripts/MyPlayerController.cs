@@ -13,6 +13,7 @@ public class MyPlayerController : MonoBehaviour
     [SerializeField] private float X_ACCELERATION = 0.5f;
     [SerializeField] private float JUMP_MODIFIER = 20f;
     [SerializeField] private float MAX_X_SPEED = 10f;
+    [SerializeField] private float MAX_Y_SPEED = 40f;
     //[SerializeField] private float
     //[SerializeField] private float
     //[SerializeField] private float
@@ -58,7 +59,7 @@ public class MyPlayerController : MonoBehaviour
 
         // JUMP CONTROL
         // Make it so you can hold jumps to keep doing them
-        if (Input.GetButton("Jump"))
+        if (Input.GetButton("Jump") || Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (IsGrounded() && !holdingJump)
             {   
@@ -71,6 +72,16 @@ public class MyPlayerController : MonoBehaviour
         else
         {
             holdingJump = false;
+        }
+
+        // Cap Y Speed
+        if (rigidBody.velocity.y > MAX_Y_SPEED)
+        {
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, MAX_Y_SPEED);
+        }
+        else if (rigidBody.velocity.y < -MAX_Y_SPEED)
+        {
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, -MAX_Y_SPEED);
         }
 
         // For debugging
