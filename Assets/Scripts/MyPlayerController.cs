@@ -6,13 +6,22 @@ public class MyPlayerController : MonoBehaviour
 {
     [Header("Player")] 
     [SerializeField] private bool _gravityInverted = false;
-    [SerializeField] private const int GRAVITY_SCALE = 10;
     [SerializeField] private Vector2 velocity;
 
+    [Header("Constants")]
+    [SerializeField] private int GRAVITY_SCALE = 6;
+    [SerializeField] private float FRICTION = 0.95f;
+    [SerializeField] private float X_ACCELERATION = 0.5f;
+    [SerializeField] private float JUMP_MODIFIER = 20f;
+    [SerializeField] private float MAX_X_SPEED = 10f;
+    //[SerializeField] private float
+    //[SerializeField] private float
+    //[SerializeField] private float
 
     private Rigidbody2D rigidBody;
     private BoxCollider2D boxCollider;
     private Vector2 upVector;
+    private bool holdingJump = false;
 
     // Ground Terrain
     [SerializeField] private LayerMask jumpableGround;
@@ -24,6 +33,7 @@ public class MyPlayerController : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         rigidBody.gravityScale = GRAVITY_SCALE;
         rigidBody.freezeRotation = true;
+        jumpableGround = LayerMask.GetMask("Ground");
         // By default the up vector will be up
         upVector = new Vector2(0, 1);
     }
@@ -36,12 +46,35 @@ public class MyPlayerController : MonoBehaviour
 
         if (xInput != 0)
         {
-            rigidBody.velocity = new Vector2(xInput * 7f, rigidBody.velocity.y);
+            float newXVelocity = xInput * X_ACCELERATION + rigidBody.velocity.x;
+            // Make sure to cap the max speed
+            newXVelocity = newXVelocity > MAX_X_SPEED ? MAX_X_SPEED : newXVelocity;
+            newXVelocity = newXVelocity < -MAX_X_SPEED ? -MAX_X_SPEED : newXVelocity;
+
+            rigidBody.velocity = new Vector2(newXVelocity, rigidBody.velocity.y);
         }
-        if (Input.GetButton("Jump") && IsGrounded())
+        else
         {
-            rigidBody.velocity = new Vector2(rigidBody.velocity.x, 30f * upVector.y);
+            // Add Arial Drag if no horizontal movement is applied
+            rigidBody.velocity *= new Vector2(FRICTION, 1);
         }
+
+        // JUMP CONTROL
+        // Make it so you can hold jumps to keep doing them
+        if (Input.GetButton("Jump"))
+        {
+            if (IsGrounded() && !holdingJump)
+            {
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, JUMP_MODIFIER * upVector.y);
+
+            }
+            holdingJump = true;
+        }
+        else
+        {
+            holdingJump = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.P)) // Flip Gravity
         {
             _gravityInverted = !_gravityInverted;
