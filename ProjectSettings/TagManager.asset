@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Grabable
+  - GravityPadActivation
+  - GravityPadDeactivation
   layers:
   - Default
   - TransparentFX

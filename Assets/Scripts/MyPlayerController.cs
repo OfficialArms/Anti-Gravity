@@ -5,7 +5,6 @@ using UnityEngine;
 public class MyPlayerController : MonoBehaviour
 {
     [Header("Player")] 
-    [SerializeField] private bool _gravityInverted = false;
     [SerializeField] private Vector2 velocity;
 
     [Header("Constants")]
@@ -20,7 +19,6 @@ public class MyPlayerController : MonoBehaviour
 
     private Rigidbody2D rigidBody;
     private BoxCollider2D boxCollider;
-    private Vector2 upVector;
     private bool holdingJump = false;
 
     // Ground Terrain
@@ -34,8 +32,6 @@ public class MyPlayerController : MonoBehaviour
         rigidBody.gravityScale = GRAVITY_SCALE;
         rigidBody.freezeRotation = true;
         jumpableGround = LayerMask.GetMask("Ground");
-        // By default the up vector will be up
-        upVector = new Vector2(0, 1);
     }
 
     // Update is called once per frame
@@ -65,8 +61,9 @@ public class MyPlayerController : MonoBehaviour
         if (Input.GetButton("Jump"))
         {
             if (IsGrounded() && !holdingJump)
-            {
-                rigidBody.velocity = new Vector2(rigidBody.velocity.x, JUMP_MODIFIER * upVector.y);
+            {   
+                // Add the velocity
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, JUMP_MODIFIER * getUpVector().y);
 
             }
             holdingJump = true;
@@ -78,20 +75,25 @@ public class MyPlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P)) // Flip Gravity
         {
-            _gravityInverted = !_gravityInverted;
             rigidBody.gravityScale *= -1;
-            upVector.y *= -1;
         }
 
         // For debugging
         velocity = rigidBody.velocity;
     }
 
+    private Vector2 getUpVector()
+    {
+        // Get the up vector
+        Vector2 upVector = new Vector2(0, rigidBody.gravityScale);
+        upVector.Normalize();
+        return upVector;
+    }
 
     // Ground Detection
     private bool IsGrounded()
     {
-        return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, upVector * -1, 0.1f, jumpableGround);
+        return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, getUpVector() * -1, 0.1f, jumpableGround);
     }
     
 }
