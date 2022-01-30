@@ -28,6 +28,7 @@ public class PlayerPush : MonoBehaviour
         // Local scale makes sure the x is based on which way they are looking
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, MOVEABLE_DISTANCE, boxLayer);
 
+        // Check if it hit the right side. If it didn't check the left.
         if(hit.collider == null)
             hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x * -1, MOVEABLE_DISTANCE, boxLayer);
 
