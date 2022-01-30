@@ -10,6 +10,9 @@ public class PlayerPush : MonoBehaviour
 
     GameObject box;
 
+    [Header("Constants")]
+    [SerializeField] private int GRAVITY_SCALE = 6;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +35,10 @@ public class PlayerPush : MonoBehaviour
             box.GetComponent<FixedJoint2D>().enabled = true;
 
             box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
+        } else if (Input.GetKeyUp(KeyCode.E))
+        {
+            box.GetComponent<FixedJoint2D>().enabled = false;
+            box.GetComponent<boxpull>().beingPushed = false;
         }
 
 
@@ -45,6 +52,8 @@ public class PlayerPush : MonoBehaviour
     {
         Gizmos.color = Color.red;
 
-        Gizmos.DrawLine(transform.position, (Vector2) transform.position + Vector2.right * transform.localScale.x * MOVEABLE_DISTANCE);
+        Gizmos.DrawLine((Vector2)transform.position - new Vector2(MOVEABLE_DISTANCE,0), 
+                        (Vector2) transform.position + (Vector2) transform.right * transform.localScale.x * MOVEABLE_DISTANCE
+        );
     }
 }
