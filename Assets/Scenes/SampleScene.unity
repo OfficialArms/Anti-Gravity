@@ -910,8 +910,6 @@ GameObject:
   - component: {fileID: 1742563949}
   - component: {fileID: 1742563950}
   - component: {fileID: 1742563944}
-  - component: {fileID: 1742563948}
-  - component: {fileID: 1742563947}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -926,33 +924,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1742563943}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4ef8bbd98ff7d64988ad2fe1546e14e, type: 3}
+  m_Script: {fileID: 11500000, guid: fa1f101e628bfcb4aab2350223533cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.4, y: 0.4, z: 0}
-  _groundLayer:
+  _gravityInverted: 0
+  velocity: {x: 0, y: 0}
+  GRAVITY_SCALE: 6
+  FRICTION: 0.95
+  X_ACCELERATION: 0.5
+  JUMP_MODIFIER: 20
+  MAX_X_SPEED: 10
+  jumpableGround:
     serializedVersion: 2
-    m_Bits: 4294967295
-  _detectorCount: 3
-  _detectionRayLength: 0.1
-  _rayBuffer: 0.1
-  _acceleration: 90
-  _moveClamp: 13
-  _deAcceleration: 60
-  _apexBonus: 2
-  _fallClamp: -40
-  _minFallSpeed: 80
-  _maxFallSpeed: 120
-  _jumpHeight: 30
-  _jumpApexThreshold: 10
-  _coyoteTimeThreshold: 0.1
-  _jumpBuffer: 0.1
-  _jumpEndEarlyGravityModifier: 3
-  _freeColliderIterations: 10
+    m_Bits: 0
 --- !u!212 &1742563945
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1019,53 +1005,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1742563947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1742563943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa1f101e628bfcb4aab2350223533cec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gravityInverted: 0
-  velocity: {x: 0, y: 0}
-  GRAVITY_SCALE: 10
-  AIR_DRAG_MODIFYER: 0.9
-  X_SPEED_MODIFIER: 7
-  JUMP_MODIFIER: 30
-  jumpableGround:
-    serializedVersion: 2
-    m_Bits: 64
---- !u!114 &1742563948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1742563943}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b1d29e8a8cbf164db9c1207d62cfc42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _anim: {fileID: 0}
-  _source: {fileID: 0}
-  _groundMask:
-    serializedVersion: 2
-    m_Bits: 0
-  _jumpParticles: {fileID: 0}
-  _launchParticles: {fileID: 0}
-  _moveParticles: {fileID: 0}
-  _landParticles: {fileID: 0}
-  _footsteps: []
-  _maxTilt: 0.1
-  _tiltSpeed: 1
-  _maxIdleSpeed: 2
-  _maxParticleFallSpeed: -40
 --- !u!50 &1742563949
 Rigidbody2D:
   serializedVersion: 4
