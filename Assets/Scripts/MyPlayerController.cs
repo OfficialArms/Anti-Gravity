@@ -44,7 +44,6 @@ public class MyPlayerController : MonoBehaviour
 
         float xInput = Input.GetAxisRaw("Horizontal");
 
-        // Deal with the x-axis movement
         if (xInput != 0)
         {
             float newXVelocity = xInput * X_ACCELERATION + rigidBody.velocity.x;
