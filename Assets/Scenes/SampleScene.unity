@@ -331,11 +331,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.4351673, z: -10}
+  m_LocalPosition: {x: 0, y: 0.5648327, z: -10}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_Father: {fileID: 1742563946}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &685996933
 GameObject:
@@ -633,7 +633,7 @@ Transform:
   - {fileID: 1461702968}
   - {fileID: 685996937}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1461702964
 GameObject:
@@ -1014,7 +1014,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 519420032}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1032,9 +1033,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gravityInverted: 0
   velocity: {x: 0, y: 0}
+  GRAVITY_SCALE: 10
+  AIR_DRAG_MODIFYER: 0.9
+  X_SPEED_MODIFIER: 7
+  JUMP_MODIFIER: 30
   jumpableGround:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!114 &1742563948
 MonoBehaviour:
   m_ObjectHideFlags: 0
