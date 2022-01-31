@@ -22,6 +22,20 @@ public class MyPlayerController : MonoBehaviour
     private BoxCollider2D boxCollider;
     private bool holdingJump = false;
 
+    // Wall Sliding
+    bool isTouchingFront;
+    bool isTouchingBack;
+    public Transform frontCheck;
+    public Transform backCheck;
+    bool wallSliding;
+    public float wallSlidingSpeed;
+
+    // Wall Jumping
+    bool wallJumping;
+    public float xWallForce = 15f;
+    public float yWallForce = 30f;
+    public float wallJumpTime = 0.05f;
+
     // Ground Terrain
     [SerializeField] private LayerMask jumpableGround;
 
@@ -84,8 +98,41 @@ public class MyPlayerController : MonoBehaviour
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, -MAX_Y_SPEED);
         }
 
-        // For debugging
-        velocity = rigidBody.velocity;
+        // Wall Sliding
+
+        // Check if character is against an object
+        isTouchingFront = Physics2D.OverlapBox(frontCheck.position, transform.localScale / 2, jumpableGround);
+        isTouchingBack = Physics2D.OverlapBox(backCheck.position, transform.localScale / 2, jumpableGround);
+
+        if ((isTouchingFront == true || isTouchingBack == true) && IsGrounded() == false && xInput != 0 && rigidBody.velocity.y < 0)
+        {
+            wallSliding = true;
+        }
+        else
+        {
+            wallSliding = false;
+        }
+
+        if(wallSliding == true)
+        {
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, Mathf.Clamp(rigidBody.velocity.y, -wallSlidingSpeed, float.MaxValue));
+        }
+
+        // Wall Jumping
+
+        if ((Input.GetButton("Jump") || Input.GetKeyDown(KeyCode.UpArrow)) && wallSliding == true)
+        {
+            wallJumping = true;
+            Invoke("SetWallJumpingToFalse", wallJumpTime);
+        }
+
+        if(wallJumping == true)
+        {
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, JUMP_MODIFIER * getUpVector().y);
+        }
+
+            // For debugging
+            velocity = rigidBody.velocity;
     }
 
     private Vector2 getUpVector()
@@ -94,6 +141,11 @@ public class MyPlayerController : MonoBehaviour
         Vector2 upVector = new Vector2(0, rigidBody.gravityScale);
         upVector.Normalize();
         return upVector;
+    }
+
+    void SetWallJumpingToFalse()
+    {
+        wallJumping = false;
     }
 
     // Ground Detection
